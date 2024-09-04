@@ -3,15 +3,11 @@ from parametros.models import PuntoEmpadronamiento
 from parametros.models import Cuenta, EntidadPersona, EntidadEmpresa, EntidadContrato, Depositos, Tags, Vehiculo
 
 class PuntoEmpadronamientoSerializer(serializers.ModelSerializer):
-    nombre_regional = serializers.SerializerMethodField()
+    nombre_regional = serializers.CharField(source='id_regional.nombre_regional', read_only=True)
+
     class Meta:
         model = PuntoEmpadronamiento
         fields = '__all__'
-    def get_nombre_regional(self, punto_empadronamiento):
-        # Obtén el nombre de la regional a partir de la entidad financiera
-        regional = punto_empadronamiento.id_regional  # Supongamos que este es el campo que almacena la clave foránea
-        return regional.nombre_regional if regional else None    
-
 
 
 class CuentaSerializer(serializers.ModelSerializer):

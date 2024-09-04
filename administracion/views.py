@@ -157,7 +157,7 @@ class Logout(GenericAPIView):
 
 
 class MenuViewSet(viewsets.ModelViewSet):
-    queryset = Menu.objects.all().order_by('-id_menu')
+    queryset = Menu.objects.all().order_by('nombre')
     serializer_class = MenuSerializer
 
 

@@ -21,7 +21,7 @@ router.register(r'vehiculo', VehiculoViewSet, basename='vehiculo')
 urlpatterns = [
     # Otras rutas de tu aplicación
     path('', include(router.urls)),
-    path('pempadronamiento/baja/<int:pk>', views.BajaPuntoEmpadronamientolView.as_view(), name='bajaPuntoEmpadronamiento'),
+    path('pempadronamiento/baja/<int:pk>', views.BajaPuntoEmpadronamientoView.as_view(), name='bajaPuntoEmpadronamiento'),
      ################ Cuentas ##################
 
      path('cancelarRegistroNuevaCuenta/<int:pk>',views.CancelarRegistroNuevaCuenta.as_view(), name='CancelarRegistroNuevaCuenta'),

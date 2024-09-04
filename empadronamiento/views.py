@@ -23,23 +23,21 @@ from django.http import Http404
 
 
 
-# Create your views here.
 class PuntoEmpadronamientoViewSet(viewsets.ModelViewSet):
-    queryset = PuntoEmpadronamiento.objects.filter(baja=0).order_by('-id_punto_empadronamiento')
+    queryset = PuntoEmpadronamiento.objects.filter(baja=0).select_related('id_regional').order_by('id_regional__nombre_regional')
     serializer_class = PuntoEmpadronamientoSerializer
 
 
-class BajaPuntoEmpadronamientolView(generics.UpdateAPIView):
+
+class BajaPuntoEmpadronamientoView(generics.UpdateAPIView):
     queryset = PuntoEmpadronamiento.objects.all()
     serializer_class = PuntoEmpadronamientoSerializer
 
-    def update(self, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.baja = 1
         instance.save()
-        return Response({'message': f'El punto de empadronamiento {instance.descripcion} fue dada de baja.'})
-
-
+        return Response({'message': f'El punto de empadronamiento "{instance.descripcion}" fue dado de baja.'})
 
 #class MostrarPuntoEmpadronamientoAPIView(APIView):
     #def get(self, request, *args, **kwargs):        

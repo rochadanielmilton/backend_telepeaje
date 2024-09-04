@@ -17,7 +17,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 class RegionalesViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset=Regionales.objects.filter(baja=0)
+    queryset=Regionales.objects.filter(baja=0).order_by('nombre_regional')
     serializer_class=RegionalesSerializer
  
 class BajaRegionalView(generics.UpdateAPIView):
@@ -35,7 +35,7 @@ class BajaRegionalView(generics.UpdateAPIView):
 class CategoriasViewSet(viewsets.ModelViewSet):
     #authentication_classes = [JWTAuthentication]
     #permission_classes = [IsAuthenticated]
-    queryset=CategoriaVehiculo.objects.filter(baja=0).order_by('-id_categoria')
+    queryset=CategoriaVehiculo.objects.filter(baja=0).order_by('nombre_categoria')
     serializer_class=CategoriasSerializer
     
 class BajaCategoriaView(generics.UpdateAPIView):
@@ -43,7 +43,6 @@ class BajaCategoriaView(generics.UpdateAPIView):
     serializer_class = CategoriasSerializer
     
     def update(self, *args, **kwargs):
-        print("MMMMMMMMMMMMMMMMMMMMMMMMMMMM")
         instance = self.get_object()
         instance.baja = 1
         instance.save()
@@ -86,12 +85,12 @@ class BajaTarifarioView(generics.UpdateAPIView):
 class RutasViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset=Rutas.objects.filter(baja=0).order_by('-id_ruta')
+    queryset=Rutas.objects.filter(baja=0).order_by('nombre')
     def get_serializer_class(self):       
         return RutasSerializer
 
 class BajaRutaView(generics.UpdateAPIView):
-    queryset = Rutas.objects.filter(baja=0).order_by('id_ruta')
+    queryset = Rutas.objects.filter(baja=0).order_by('nombre')
     serializer_class = RutasSerializer
 
     def update(self, *args, **kwargs):
@@ -105,11 +104,11 @@ class BajaRutaView(generics.UpdateAPIView):
 class CargosViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset=Cargo.objects.filter(baja=0).order_by('-id')
+    queryset=Cargo.objects.filter(baja=0).order_by('nombre_cargo')
     serializer_class=CargosSerializer
     
 class BajaCargoView(generics.UpdateAPIView):
-    queryset = Cargo.objects.filter(baja=0).order_by('id')
+    queryset = Cargo.objects.filter(baja=0).order_by('nombre_cargo')
     serializer_class = CargosSerializer
 
     def update(self, *args, **kwargs):
@@ -143,12 +142,12 @@ class BajaEntidadFinancieraView(generics.UpdateAPIView):
 class LocalidadViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset=Localidad.objects.filter(baja=0).order_by('-id_localidad')
+    queryset=Localidad.objects.filter(baja=0).order_by('nombre_localidad')
     def get_serializer_class(self):
         return LocalidadSerializer
     
 class BajaLocalidadView(generics.UpdateAPIView):
-    queryset = Localidad.objects.filter(baja=0).order_by('id_localidad')
+    queryset = Localidad.objects.filter(baja=0).order_by('nombre_localidad')
     serializer_class = LocalidadSerializer
 
     def update(self, *args, **kwargs):
@@ -182,12 +181,12 @@ class BajaLocalidadView(generics.UpdateAPIView):
 class RetenesViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset=Retenes.objects.filter(baja=0).order_by('-id_reten')
+    queryset=Retenes.objects.filter(baja=0).order_by('nombre_reten')
     def get_serializer_class(self):
         return RetenesSerializer    
 
 class BajaRetenesView(generics.UpdateAPIView):
-    queryset = Retenes.objects.filter(baja=0).order_by('id_reten')
+    queryset = Retenes.objects.filter(baja=0).order_by('nombre_reten')
     serializer_class = LocalidadSerializer
 
     def update(self, *args, **kwargs):
